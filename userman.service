@@ -1,0 +1,11 @@
+[Unit]
+Description=userman webapp
+After=network.target
+After=mariadb.target
+
+[Service]
+ExecStart=/usr/bin/java -jar /home/ec2-user/userman-0.0.1-SNAPSHOT.jar
+ExecStop=/bin/kill -15 ${MAINPID}
+
+[Install]
+WantedBy=multi-user.target

@@ -30,7 +30,7 @@ CREATE TABLE `product`  (
   `quantity` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `manufacturer` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `date_added` datetime(0) NULL DEFAULT NULL,
-  `date_last_updated` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
+  `date_last_updated` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -58,7 +58,7 @@ CREATE TABLE `user`  (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (9, '$2a$10$elVRYOuuXXbdkYO8XIgTR.50JDq6NVNeQY9XRAXK9qX84sNPmgE.C', '175@qq.com', '李', '白', '2023-01-29 21:34:32', '2023-01-29 21:34:32');
-INSERT INTO `user` VALUES (11, '$2a$10$y9D0.238WeGhFPvEuya9gelmSwkl0LA0VlGX0LJIFWHGCKZ9AH6Ee', '28333@qq.com', '李', '白', '2023-01-30 16:34:38', '2023-01-31 14:02:02');
+-- INSERT INTO `user` VALUES (11, '$2a$10$y9D0.238WeGhFPvEuya9gelmSwkl0LA0VlGX0LJIFWHGCKZ9AH6Ee', '28333@qq.com', '李', '白', '2023-01-30 16:34:38', '2023-01-31 14:02:02');
 INSERT INTO `user` VALUES (12, '$2a$10$U7nm8FwNYy13fNvqZ7LM3.ftZ6CbnkZtj7dB5pwsuKky1T.UFBKh6', '22@qq.com', '李', '白', '2023-01-30 16:37:28', '2023-01-30 16:37:28');
 INSERT INTO `user` VALUES (14, '$2a$10$w6nNnZjyr4TL5tut94bAxe72OWEuG6XpAvSYT4eMc1Oof1WP5qMxq', '12@qq.com', '李', '白', '2023-02-01 13:18:18', '2023-02-01 13:18:18');
 INSERT INTO `user` VALUES (15, '$2a$10$QhexzK0.12LC33kczr4dh.3emUUjcgtK1t.F3PIhAmZT91hqvx0Km', '11@qq.com', '小所1122属', 'hou222', '2023-02-01 13:24:08', '2023-02-01 13:29:58');

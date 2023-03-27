@@ -30,8 +30,8 @@ public class ProductController {
     private ProductService productService;
 
 
-    GetMapping("{productId}")
-    ApiOperation("查询产品")
+    @GetMapping("{productId}")
+    @ApiOperation("查询产品")
     public Result query(@PathVariable Integer productId){
         Product data = productService.getById(productId);
         if (data == null){
