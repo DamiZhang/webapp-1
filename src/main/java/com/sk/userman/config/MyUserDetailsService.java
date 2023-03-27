@@ -19,13 +19,13 @@ import java.util.ArrayList;
  */
 @Component
 public class MyUserDetailsService implements UserDetailsService {
- 
+
     @Autowired
     private UserMapper userMapper;
- 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userMapper.selectOne(new QueryWrapper<User>().eq("email",username));
+        User user = userMapper.selectOne(new QueryWrapper<User>().eq("username",username));
         com.sk.userman.config.User user1 = new com.sk.userman.config.User();
         user1.setUsername(username);
         BaseContext.set(username);

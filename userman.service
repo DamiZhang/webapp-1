@@ -4,8 +4,9 @@ After=network.target
 After=mariadb.target
 
 [Service]
-ExecStart=/usr/bin/java -jar /home/ec2-user/userman-0.0.1-SNAPSHOT.jar
+ExecStart=/usr/bin/java -jar /home/ec2-user/userman-0.0.1-SNAPSHOT.jar --spring.config.location=/home/ec2-user/config/
 ExecStop=/bin/kill -15 ${MAINPID}
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

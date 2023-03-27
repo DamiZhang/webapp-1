@@ -9,6 +9,8 @@ import com.sk.userman.vo.UserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  **/
 @RequestMapping("/v1/user")
 @RestController
-@Api(tags="用户管理")
+@Api(tags="User")
 public class UserController {
 
     /**
@@ -47,10 +49,10 @@ public class UserController {
 
     @ApiOperation(value = "获取当前用户信息Access the current user information",response = UserVO.class)
     @GetMapping("{userId}")
-    public Result info(@PathVariable Integer userId){
+    public ResponseEntity<String> info(@PathVariable Integer userId){
 
         UserVO info = userService.info(userId +"");
-        return new Result<>().ok(info);
+        return new ResponseEntity(info, HttpStatus.OK);
     }
 
     @ApiOperation("修改当前用户信息Update user information")

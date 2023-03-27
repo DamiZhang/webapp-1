@@ -18,7 +18,7 @@ import javax.validation.constraints.NotBlank;
 public class LoginDTO {
     @ApiModelProperty(value = "邮箱Email")
     @Email
-    private String email;
+    private String userName;
 
     @NotBlank(message = "密码不能为空Password cannot be empty")
     @ApiModelProperty(value = "密码Password")

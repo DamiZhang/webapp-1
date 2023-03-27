@@ -27,13 +27,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private UserMapper userMapper;
+
 
 
 
     @Override
     public void register(User user) throws Exception {
 
-        User oneUser = getOne(new QueryWrapper<User>().eq("email", user.getEmail()));
+        User oneUser = getOne(new QueryWrapper<User>().eq("username", user.getUsername()));
         if (oneUser == null) {
             //进行加密
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -51,7 +54,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Override
     public String login(LoginDTO loginDTO) {
 
-        User user = getOne(new QueryWrapper<User>().eq("email", loginDTO.getEmail()));
+        User user = getOne(new QueryWrapper<User>().eq("username", loginDTO.getUserName()));
 
 
         if (user == null) {
@@ -68,7 +71,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     public UserVO info(String userId) {
         User user = getById(userId);
         if (user == null) {
-            throw new BusinessException("获取信息失败,请先登录");
+            throw new BusinessException("userId not exist");
         }
         UserVO userVO = new UserVO();
         BeanUtils.copyProperties(user, userVO);
@@ -84,5 +87,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         user.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
         user.setAccountUpdate(new Date());
         updateById(user);
+    }
+
+    @Override
+    public User getByUsername(String username) {
+        return userMapper.getByUsername(username);
     }
 }

@@ -19,4 +19,6 @@ public interface UserService extends IService<User> {
     UserVO info(String username);
 
     void updateInfo(UserDTO userDTO) throws Exception;
+
+    User getByUsername(String username);
 }

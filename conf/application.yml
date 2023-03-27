@@ -3,9 +3,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://127.0.0.1:3306/userman?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
-      username: root
-      password: 123456
+      url: jdbc:mysql://{mysql_endpoint}/userman?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
+      username: csye6225
+      password: 12345678
       initial-size: 10
       max-active: 100
       min-idle: 10
@@ -42,22 +42,27 @@ spring:
     time-zone: GMT+8
 userman:
   jwt:
+    # \u52A0\u5BC6\u79D8\u94A5
     secret: f4e2e52034348f86b67cde581c0f9eb5
+    # token\u6709\u6548\u65F6\u957F\uFF0C7\u5929\uFF0C\u5355\u4F4D\u79D2
     expire: 604800
     header: token
 
 #mybatis
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
+  #\u5B9E\u4F53\u626B\u63CF\uFF0C\u591A\u4E2Apackage\u7528\u9017\u53F7\u6216\u8005\u5206\u53F7\u5206\u9694
   typeAliasesPackage: com.sk.userman.domain
   global-config:
+    #\u6570\u636E\u5E93\u76F8\u5173\u914D\u7F6E
     db-config:
+      #\u4E3B\u952E\u7C7B\u578B  AUTO:"\u6570\u636E\u5E93ID\u81EA\u589E", INPUT:"\u7528\u6237\u8F93\u5165ID", ID_WORKER:"\u5168\u5C40\u552F\u4E00ID (\u6570\u5B57\u7C7B\u578B\u552F\u4E00ID)", UUID:"\u5168\u5C40\u552F\u4E00ID UUID";
       id-type: AUTO
 
 #S3配置
 aws:
   s3:
-    accessKey: AKIA4O34N7AVR2SSBZR6
-    secretKey: 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
-    bucketName: test-assginment05
+    accessKey:
+    secretKey:
+    bucketName: {s3_bucket}
     region: us-east-1

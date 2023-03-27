@@ -21,39 +21,13 @@ public class User implements Serializable {
      * 用户id
      */
     @TableId
-    private Integer id;
-
-    /**
-     * 密码
-     */
-
-    private String password;
-
-    /**
-     * 邮箱
-     */
-    @Email
-    private String email;
-
-    /**
-     * 姓
-     */
+    private Long id;
     private String firstName;
-
-    /**
-     * 名
-     */
     private String lastName;
-
-    /**
-     * 创建时间
-     */
+    private String password;
+    @Email
+    private String username;
     private Date accountCreated;
-
-    /**
-     * 更新时间
-     */
     private Date accountUpdate;
-
 
 }

@@ -12,7 +12,5 @@ buildNumber.properties
 .idea/
 .idea
 .gitignore
-.git
-*.jar
 *.iml
-webapp.code-workspace
+*.jar

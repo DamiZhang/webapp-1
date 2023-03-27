@@ -24,7 +24,7 @@ source "amazon-ebs" "amazon_linux2" {
 }
 
 build {
-  name    = "webapp-packer"
+  name    = "webapp5-packer"
   sources = [
     "source.amazon-ebs.amazon_linux2"
   ]
@@ -36,30 +36,20 @@ build {
     source      = "target/userman-0.0.1-SNAPSHOT.jar"
     destination = "/home/ec2-user/"
   }
-
   provisioner "shell" {
     inline = [
       "mkdir /home/ec2-user/config"
     ]
   }
+  provisioner "file" {
+      source      = "conf/application.yml"
+      destination = "/home/ec2-user/config/"
+  }
   provisioner "shell" {
     inline = [
       "sudo cp /home/ec2-user/userman.service /usr/lib/systemd/system/",
       "sudo yum install java-11-amazon-corretto -y",
-      "sudo systemctl start userman",
       "sudo systemctl enable userman"
-    ]
-  }
-  provisioner "shell" {
-    inline = [
-      "sudo yum update -y",
-      "sudo yum install mariadb-server -y",
-      "sudo systemctl enable mariadb",
-      "sudo systemctl start mariadb",
-      "mysql -u root <<EOF",
-      "UPDATE mysql.user SET Password=PASSWORD('123456') WHERE User='root';",
-      "FLUSH PRIVILEGES;",
-      "EOF",
     ]
   }
 }

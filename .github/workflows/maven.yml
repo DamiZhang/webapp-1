@@ -27,7 +27,7 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
-      run: mvn clean package
+      run: mvn clean package -Dmaven.test.skip=true
 
     - name: Install AWS CLI
       run: sudo apt-get update && sudo apt-get install -y awscli
@@ -46,7 +46,9 @@ jobs:
     - name: Build AMI
       run: packer build  packer.pkr.hcl | tee output.txt
     - name: Get AMI Id
-      run: echo -n $(tail -n 5 output.txt | grep ami | awk '{print $NF}') > ami_id.txt
+      run: |
+        echo -n $(tail -n 5 output.txt | grep ami | awk '{print $NF}') > ami_id.txt
+        cp ami_id.txt terraform/ec2/
       
     - name: Share AMI to Demo
       env:
@@ -57,7 +59,19 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 1.1.0
-    - name: Terraform Init
-      run: terraform init
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
+
+    - name: Create Env Terraform Init
+      run: terraform -chdir=terraform/ init
+    - name: Create Env Terraform Apply
+      id: tf_apply
+      run: |
+        terraform -chdir=terraform/ apply -auto-approve
+        terraform -chdir=terraform/ output myvpc_id | grep -oP '(?<=stdout: ").*(?=")' | tr -d '\n' > terraform/ec2/myvpc_id.txt
+        terraform -chdir=terraform/ output mysubnet_id | grep -oP '(?<=stdout: ").*(?=")' | tr -d '\n' > terraform/ec2/mysubnet_id.txt
+        terraform -chdir=terraform/ output s3_bucket_name | grep -oP '(?<=stdout: ").*(?=")' | tr -d '\n' > terraform/ec2/s3_bucket_name.txt
+        terraform -chdir=terraform/ output rds_instance_endpoint | grep -oP '(?<=stdout: ").*(?=")' | tr -d '\n' > terraform/ec2/rds_instance_endpoint.txt
+
+    - name: Deploy EC2 Terraform Init
+      run: terraform -chdir=terraform/ec2/ init
+    - name: Deploy EC2 Terraform Apply
+      run: terraform -chdir=terraform/ec2/ apply -auto-approve

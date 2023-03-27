@@ -23,7 +23,7 @@ public class UserVO {
      */
     @ApiModelProperty("邮箱")
 
-    private String email;
+    private String username;
 
     /**
      * 姓

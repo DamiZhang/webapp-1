@@ -35,7 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
-        http.authorizeRequests().antMatchers("/healthz","/v1/user","/v1/login/login","/v1/login/register","/swagger-ui.html","/webjars/**","/swagger-resources/**","/v2/**").permitAll().anyRequest().authenticated();
+//        http.authorizeRequests().antMatchers("/healthz","/v1/user","/v1/login/login","/v1/login/register","/swagger-ui.html","/webjars/**","/swagger-resources/**","/v2/**","/v1/**").permitAll().anyRequest().authenticated();
+        http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated();
         http.formLogin().successHandler(LoginSuccessHandler);
         // 使用authenticationEntryPoint验证 user/password
         http.httpBasic().authenticationEntryPoint(authEntryPoint);
